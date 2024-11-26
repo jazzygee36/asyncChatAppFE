@@ -6,6 +6,7 @@ interface Props {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  readOnly?: boolean;
 }
 
 const Input = ({
@@ -15,6 +16,7 @@ const Input = ({
   value,
   onChange,
   name,
+  readOnly,
 }: Props) => {
   return (
     <div>
@@ -25,6 +27,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         name={name}
+        readOnly={readOnly}
       />
     </div>
   );

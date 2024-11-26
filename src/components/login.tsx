@@ -8,6 +8,7 @@ import { logIn } from '@/api/auth';
 import { AxiosError } from 'axios';
 import Toast from './toast';
 import Loading from './loading';
+import { QUERIES } from '@/utils/constants';
 
 const formSchema = z.object({
   email: z.string().min(3, 'Email is required'),
@@ -47,9 +48,9 @@ const Login = () => {
         type: 'success',
       });
 
-      // queryClient.invalidateQueries({
-      //   queryKey: [QUERIES.USERPROFILE],
-      // });
+      queryClient.invalidateQueries({
+        queryKey: [QUERIES.USERPROFILE],
+      });
       // Additional logic for post-registratio
 
       setTimeout(() => {

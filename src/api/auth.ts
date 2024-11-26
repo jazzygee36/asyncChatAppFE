@@ -17,7 +17,9 @@ interface Login {
 
 export interface User {
   username: string;
-
+  image: string;
+  color: string;
+  profileSetup: string;
   email: string;
   password: string;
 

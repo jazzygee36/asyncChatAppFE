@@ -29,3 +29,20 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Interceptor to handle responses, including token errors
+apiClient.interceptors.response.use(
+  (response) => {
+    // Return the response if successful
+    return response;
+  },
+  (error) => {
+    if (error.response?.status === 401) {
+      // Redirect to login page if token is missing or invalid
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login'; // Adjust the route as per your application
+      }
+    }
+    return Promise.reject(error);
+  }
+);

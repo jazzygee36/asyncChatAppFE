@@ -5,6 +5,5 @@ export const ROUTES = {
 export const QUERIES = {
   SIGNUP: '/register',
   LOGIN: '/login',
-
   USERPROFILE: '/profile',
 };

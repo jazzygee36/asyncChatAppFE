@@ -31,7 +31,7 @@ const Register = () => {
     confirmPwd: '',
     username: '',
   });
-  console.log('dataaa', data);
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [toastMessage, setToastMessage] = useState<{
     message: string;
