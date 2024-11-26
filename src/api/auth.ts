@@ -2,6 +2,7 @@ import { QUERIES } from '@/utils/constants';
 import { apiClient } from './init';
 
 interface Signup {
+  username: string;
   email: string;
   password: string;
   confirmPwd?: string;
@@ -10,9 +11,7 @@ interface Signup {
 
 interface Login {
   email: string;
-
   password: string;
-
   access_token?: string;
 }
 
@@ -20,8 +19,7 @@ export interface User {
   username: string;
 
   email: string;
-  // password: string;
-  phoneNumber: string;
+  password: string;
 
   access_token?: string;
 }
