@@ -47,8 +47,11 @@ const UserProfile = () => {
         type: 'success',
       });
     },
-    onError: (error) => {
-      setToastMessage({ message: 'Failed to update profile.', type: 'error' });
+    onError: () => {
+      setToastMessage({
+        message: 'Failed to update profile.',
+        type: 'error',
+      });
     },
   });
 
