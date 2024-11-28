@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 // import { QUERIES, ROUTES } from '';
 
 export const useUser = (redirectOnFail?: boolean): UseQueryResult<User> =>
+ 
   useQuery({
     queryKey: [QUERIES.USERPROFILE],
     queryFn: () => getUser(),

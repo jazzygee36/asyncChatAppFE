@@ -1,10 +1,9 @@
-import React from 'react';
 interface Props {
   type: string;
   placeholder: string;
   className: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   readOnly?: boolean;
 }

@@ -1,7 +1,7 @@
 const Avatar = () => {
   return (
     <svg
-      className='w-12 h-12 text-gray-800 dark:text-white'
+      className='w-12 h-12 text-gray-800 dark:text-white cursor-pointer'
       aria-hidden='true'
       xmlns='http://www.w3.org/2000/svg'
       width='24'

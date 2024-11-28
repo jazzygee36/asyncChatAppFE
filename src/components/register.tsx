@@ -3,9 +3,8 @@ import { z } from 'zod';
 import Button from './button';
 import Input from './input';
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { signUp } from '@/api/auth';
-import { QUERIES } from '@/utils/constants';
 import { AxiosError } from 'axios';
 import Toast from './toast';
 
@@ -24,7 +23,6 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 const Register = () => {
-  const queryClient = useQueryClient();
   const [data, setData] = useState<FormData>({
     password: '',
     email: '',

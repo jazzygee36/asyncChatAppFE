@@ -7,7 +7,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { logIn } from '@/api/auth';
 import { AxiosError } from 'axios';
 import Toast from './toast';
-import Loading from './loading';
 import { QUERIES } from '@/utils/constants';
 
 const formSchema = z.object({
@@ -19,7 +18,6 @@ type FormData = z.infer<typeof formSchema>;
 
 const Login = () => {
   const queryClient = useQueryClient();
-  const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState<FormData>({
     password: '',
@@ -38,24 +36,40 @@ const Login = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: logIn,
-    onSuccess: (data: unknown) => {
-      const successMessage =
-        (data as { response?: { data?: { message: string } } })?.response?.data
-          ?.message || 'Login Successful';
 
-      setToastMessage({
-        message: successMessage,
-        type: 'success',
-      });
+    onSuccess: async (data: unknown) => {
+      const token =
+        (data as { token?: string })?.token ||
+        (data as { data?: { token: string } })?.data?.token;
 
-      queryClient.invalidateQueries({
-        queryKey: [QUERIES.USERPROFILE],
-      });
-      // Additional logic for post-registratio
+      if (token) {
+        // Start loading state to show spinner
+        // setLoading(true);
 
-      setTimeout(() => {
+        // Store the token in localStorage
+        localStorage.setItem('token', token);
+
+        // Show success toast
+        setToastMessage({
+          message: 'Login Successful',
+          type: 'success',
+        });
+
+        // Invalidate queries to refresh data
+        queryClient.invalidateQueries({
+          queryKey: [QUERIES.USERPROFILE],
+        });
+
+        // Delay before redirecting to dashboard to allow loading spinner to render
+        // setTimeout(() => {
         window.location.href = '/profile';
-      }, 300); // Adjust delay as needed
+        // }, 300); // Adjust delay as needed
+      } else {
+        setToastMessage({
+          message: 'Token not received. Please try again.',
+          type: 'error',
+        });
+      }
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const errorMessage =

@@ -40,7 +40,7 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       // Redirect to login page if token is missing or invalid
       if (typeof window !== 'undefined') {
-        window.location.href = '/login'; // Adjust the route as per your application
+        window.location.href = '/'; // Adjust the route as per your application
       }
     }
     return Promise.reject(error);

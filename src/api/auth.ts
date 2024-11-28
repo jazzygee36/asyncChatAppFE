@@ -15,14 +15,27 @@ interface Login {
   access_token?: string;
 }
 
+interface updateUserProfile {
+  userId: string;
+  image: string;
+}
+
+interface UserDetails {
+  email: string;
+  username: string;
+  id: string;
+  image: string;
+  profileSetup: boolean;
+}
+
 export interface User {
   username: string;
   image: string;
   color: string;
-  profileSetup: string;
+  profileSetup: boolean;
   email: string;
   password: string;
-
+  user: UserDetails;
   access_token?: string;
 }
 
@@ -42,6 +55,14 @@ export const signUp = async (body: Signup) => {
 
 export const logIn = async (body: Login) => {
   const { data } = await apiClient.post(QUERIES.LOGIN, body);
+
+  postToLocalStorage(data.access_token ?? '');
+
+  return data;
+};
+
+export const updateProfile = async (body: updateUserProfile) => {
+  const { data } = await apiClient.post(QUERIES.UPDATEPROFILE, body);
 
   postToLocalStorage(data.access_token ?? '');
 
