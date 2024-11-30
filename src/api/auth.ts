@@ -28,6 +28,10 @@ interface UserDetails {
   profileSetup: boolean;
 }
 
+interface contact {
+  searchTerm: string;
+}
+
 export interface User {
   username: string;
   image: string;
@@ -65,6 +69,14 @@ export const updateProfile = async (body: updateUserProfile) => {
   const { data } = await apiClient.post(QUERIES.UPDATEPROFILE, body);
 
   postToLocalStorage(data.access_token ?? '');
+
+  return data;
+};
+
+export const contacts = async (body: contact) => {
+  const { data } = await apiClient.post(QUERIES.CONTACTS, body);
+
+  // postToLocalStorage(data.access_token ?? '');
 
   return data;
 };

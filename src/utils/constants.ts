@@ -8,4 +8,5 @@ export const QUERIES = {
   USERPROFILE: '/profile',
 
   UPDATEPROFILE: '/update-profile',
+  CONTACTS: '/search',
 };

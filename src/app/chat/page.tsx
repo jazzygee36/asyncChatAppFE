@@ -1,6 +1,6 @@
-import Chatcontainer from '@/components/chatContainer/chat-container';
+// import Chatcontainer from '@/components/chatContainer/chat-container';
 import ContactsContainer from '@/components/contactInfo/contacts-container';
-import EmptyChatContainer from '@/components/empty-chat-container';
+// import EmptyChatContainer from '@/components/empty-chat-container';
 import React from 'react';
 
 const Chats = () => {

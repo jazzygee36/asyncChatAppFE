@@ -3,10 +3,10 @@ import { useUser } from '@/hooks/user';
 import { useState } from 'react';
 import AvatarIcon from '@/assets/icons/avatar';
 import EditProfile from '@/assets/icons/edit';
-import Button from '../button';
+import Logout from '@/assets/icons/logout';
 
 const ProfileInfo = () => {
-  const { data: user, isLoading } = useUser(true);
+  const { data: user } = useUser(true);
 
   const username = user?.user?.username;
   const userImage = user?.user?.image;
@@ -29,37 +29,34 @@ const ProfileInfo = () => {
             <img
               src={userImage ? userImage : avatarImage}
               alt='User Avatar'
-              className='w-24 h-24 rounded-full object-cover'
+              className='w-12 h-12 rounded-full object-cover'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             />
           ) : (
             <div
-              className='w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center'
+              className='text-[green] font-bold uppercase w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             >
-              <AvatarIcon />
+              {/* <AvatarIcon /> */}
+              {username?.[0]}
             </div>
           )}
-          <div>{username}</div>
+          <div className='capitalized '>{username}</div>
         </div>
 
-        <div
-          onClick={() => {
-            window.location.href = '/profile';
-          }}
-        >
-          <EditProfile />
+        <div className='flex items-center gap-4'>
+          <div
+            onClick={() => {
+              window.location.href = '/profile';
+            }}
+          >
+            <EditProfile />
+          </div>
+          <div onClick={handleLogOut}>
+            <Logout />
+          </div>
         </div>
-        <Button
-          onClick={handleLogOut}
-          title={'LogOut'}
-          type={'button'}
-          className={
-            'bg-transparent w-full text-[red] absolute  rounded-none mt-12 font-bold cursor-pointer'
-          }
-        />
 
-        {/* </div> */}
         {/* </div> */}
       </div>
     </div>
