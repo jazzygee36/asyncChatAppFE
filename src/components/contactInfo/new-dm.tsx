@@ -68,32 +68,34 @@ const NewDirectMessage = () => {
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <>
-          <h4 className='text-center font-bold '>Please select a contact</h4>
+          <h4 className='text-center font-bold text-white'>
+            Please select a contact
+          </h4>
           <input
             type='text'
             placeholder='Search contact'
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
-            className='p-3 rounded-lg w-full bg-[#262e3b] text-white mt-4 '
+            className='p-3 rounded-lg w-full bg-[#262e3b]  text-white mt-4 '
           />
           {isSearching && (
-            <div className='text-center text-sm text-gray-500 my-5'>
+            <div className='text-center text-white text-sm  my-5'>
               Searching...
             </div>
           )}
           {isSearchError && (
-            <div className='text-center text-sm text-red-500 my-5'>
+            <div className='text-center text-white text-sm  my-5'>
               Failed to fetch contacts
             </div>
           )}
           {searchedContacts.length === 0 && !isSearching && !isSearchError && (
-            <div className='text-center text-black mt-5'>No contacts found</div>
+            <div className='text-center text-white mt-5'>No contacts found</div>
           )}
           {searchedContacts.length > 0 &&
             searchedContacts.map((contact) => (
               <li
                 key={contact.id}
-                className='flex items-center gap-3 py-3 cursor-pointer'
+                className='flex items-center gap-3 py-3 cursor-pointer text-white'
                 onClick={() => selectNewContact(contact)}
               >
                 {contact.avatar ? (

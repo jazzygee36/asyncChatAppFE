@@ -18,12 +18,12 @@ const ChatHeader = () => {
             <img
               src={selectedChatData ? selectedChatData.avatar : ''}
               alt='User Avatar'
-              className='w-12 h-12 rounded-full object-cover'
+              className='w-10 md:w-12 h-10 md:h-12 rounded-full object-cover'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             />
           ) : (
             <div
-              className='text-[green] font-bold uppercase w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center'
+              className='text-[green] font-bold uppercase w-8 md:w-10 h-8 md:h-10 rounded-full bg-gray-200 flex items-center justify-center'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             >
               {selectedChatData?.username?.[0]}
