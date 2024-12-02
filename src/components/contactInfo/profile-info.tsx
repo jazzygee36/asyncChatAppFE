@@ -1,7 +1,7 @@
 'use client';
 import { useUser } from '@/hooks/user';
 import { useState } from 'react';
-import AvatarIcon from '@/assets/icons/avatar';
+
 import EditProfile from '@/assets/icons/edit';
 import Logout from '@/assets/icons/logout';
 
@@ -11,7 +11,7 @@ const ProfileInfo = () => {
   const username = user?.user?.username;
   const userImage = user?.user?.image;
 
-  const [avatarImage, setAvatarImage] = useState<string | null>(
+  const [avatarImage] = useState<string | null>(
     user?.user?.image ?? null
   );
 
@@ -37,11 +37,11 @@ const ProfileInfo = () => {
               className='text-[green] font-bold uppercase w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             >
-              {/* <AvatarIcon /> */}
+          
               {username?.[0]}
             </div>
           )}
-          <div className='capitalized '>{username}</div>
+          <div className='capitalize '>{username}</div>
         </div>
 
         <div className='flex items-center gap-4'>

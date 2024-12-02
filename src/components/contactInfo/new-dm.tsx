@@ -5,6 +5,7 @@ import Modal from '../modal';
 import { contacts } from '@/api/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
+import { createChatSlice } from '../store/slices/chat-slice';
 
 type Contact = {
   id: string;
@@ -14,6 +15,7 @@ type Contact = {
 };
 
 const NewDirectMessage = () => {
+  const { setSelectedChatType, setSelectedChatData } = createChatSlice();
   const [searchedContacts, setSearchedContacts] = useState<Contact[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,6 +54,8 @@ const NewDirectMessage = () => {
   const selectNewContact = (contact: Contact) => {
     setIsOpen(false);
     setSearchTerm('');
+    setSelectedChatType('contact');
+    setSelectedChatData(contact);
     setSearchedContacts([]);
   };
 
@@ -61,48 +65,53 @@ const NewDirectMessage = () => {
         <Plus />
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h4 className='text-center font-bold '>Please select a contact</h4>
-        <input
-          type='text'
-          placeholder='Search contact'
-          value={searchTerm}
-          onChange={(e) => handleSearch(e.target.value)}
-          className='p-3 rounded-lg w-full bg-[#262e3b] text-white mt-4 '
-        />
-        {isSearching && (
-          <div className='text-center text-sm text-gray-500 my-5'>
-            Searching...
-          </div>
-        )}
-        {isSearchError && (
-          <div className='text-center text-sm text-red-500 my-5'>
-            Failed to fetch contacts
-          </div>
-        )}
-        {searchedContacts.length === 0 && !isSearching && !isSearchError && (
-          <div className='text-center text-black mt-5'>No contacts found</div>
-        )}
-        {searchedContacts.length > 0 &&
-          searchedContacts.map((contact) => (
-            <li
-              key={contact.id}
-              className='flex items-center gap-3 py-3 cursor-pointer'
-              onClick={() => selectNewContact(contact)}
-            >
-              {contact.avatar ? (
-                <img
-                  src={contact.avatar}
-                  alt='User Avatar'
-                  className='w-12 h-12 rounded-full object-cover'
-                />
-              ) : (
-                <div className='w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold'>
-                  {contact.username ? contact.username[0].toUpperCase() : 'i'}
+        <>
+          <h4 className='text-center font-bold '>Please select a contact</h4>
+          <input
+            type='text'
+            placeholder='Search contact'
+            value={searchTerm}
+            onChange={(e) => handleSearch(e.target.value)}
+            className='p-3 rounded-lg w-full bg-[#262e3b] text-white mt-4 '
+          />
+          {isSearching && (
+            <div className='text-center text-sm text-gray-500 my-5'>
+              Searching...
+            </div>
+          )}
+          {isSearchError && (
+            <div className='text-center text-sm text-red-500 my-5'>
+              Failed to fetch contacts
+            </div>
+          )}
+          {searchedContacts.length === 0 && !isSearching && !isSearchError && (
+            <div className='text-center text-black mt-5'>No contacts found</div>
+          )}
+          {searchedContacts.length > 0 &&
+            searchedContacts.map((contact) => (
+              <li
+                key={contact.id}
+                className='flex items-center gap-3 py-3 cursor-pointer'
+                onClick={() => selectNewContact(contact)}
+              >
+                {contact.avatar ? (
+                  <img
+                    src={contact.avatar}
+                    alt='User Avatar'
+                    className='w-12 h-12 rounded-full object-cover'
+                  />
+                ) : (
+                  <div className='w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold'>
+                    {contact.username ? contact.username[0].toUpperCase() : 'i'}
+                  </div>
+                )}
+                <div className='flex flex-col'>
+                  <span className='capitalize'>{contact?.username}</span>
+                  <span className='text-xs'>{contact?.email}</span>
                 </div>
-              )}
-              <span>{contact?.username}</span>
-            </li>
-          ))}
+              </li>
+            ))}
+        </>
       </Modal>
     </>
   );
