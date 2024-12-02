@@ -126,7 +126,7 @@ const UserProfile = () => {
                 type='text'
                 name='username'
                 placeholder='Username'
-                className='h-10 border border-gray-300 rounded-xl w-full mt-4 text-sm text-black'
+                className='capitalise h-10 border border-gray-300 rounded-xl w-full mt-4 text-sm text-black'
                 value={username ?? ''}
                 readOnly={true}
               />

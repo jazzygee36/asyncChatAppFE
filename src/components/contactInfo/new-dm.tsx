@@ -5,7 +5,8 @@ import Modal from '../modal';
 import { contacts } from '@/api/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
-import { createChatSlice } from '../store/slices/chat-slice';
+
+import { useThemeContext } from '../context/userContext';
 
 type Contact = {
   id: string;
@@ -15,7 +16,8 @@ type Contact = {
 };
 
 const NewDirectMessage = () => {
-  const { setSelectedChatType, setSelectedChatData } = createChatSlice();
+  const { setSelectedChatType, setSelectedChatData } = useThemeContext();
+  // const { setSelectedChatType, setSelectedChatData } = createChatSlice();
   const [searchedContacts, setSearchedContacts] = useState<Contact[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');

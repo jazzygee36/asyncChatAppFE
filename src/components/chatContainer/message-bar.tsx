@@ -34,19 +34,20 @@ const MessageBar = () => {
   }, []);
 
   return (
-    <div className='h-[10vh] bg-[#1c1d25] flex justify-center items-center px-8 mb-6 gap-6'>
-      <div className='flex-1 flex bg-[#282b33] rounded-none items-center gap-5 pr-5'>
+    <div className='h-[10vh] bg-[#1c1d25] flex justify-center items-center w-[100%] px-1 md:px-8 mb-6 gap-1 md:gap-6'>
+      <div className='flex-1 flex bg-[#282b33] rounded-none items-center gap-1 md:gap-5 pr-5'>
         <input
           type='text'
           placeholder='Enter Messages'
-          className='flex-1 p-5 bg-transparent rounded-md focus:border-none focus:outline-none'
+          className='flex-1 p-5 md:p-5 bg-transparent rounded-md focus:border-none focus:outline-none'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className='text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all'>
-          <FileIcon />
-        </button>
-        <div className='relative'>
+        <div className='flex gap-3 items-center'>
+          <button className='text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all'>
+            <FileIcon />
+          </button>
+
           <button
             onClick={() => setEmojiPickerOpen((prev) => !prev)}
             className='text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all'
@@ -55,7 +56,7 @@ const MessageBar = () => {
           </button>
           {emojiPickerOpen && (
             <div
-              className='absolute bottom-16 right-0 z-50'
+              className='absolute bottom-16 right-0  z-50'
               ref={emojiPickerRef}
             >
               <EmojiPicker
