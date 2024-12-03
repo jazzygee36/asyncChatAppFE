@@ -3,6 +3,7 @@
 import { GlobalContextProvider } from '@/components/context/userContext';
 import './globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SocketProvider } from '@/socket/sockectConnect';
 const queryClient = new QueryClient();
 export default function RootLayout({
   children,
@@ -16,7 +17,7 @@ export default function RootLayout({
       >
         <GlobalContextProvider>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <SocketProvider>{children}</SocketProvider>
           </QueryClientProvider>
         </GlobalContextProvider>
       </body>
