@@ -67,55 +67,53 @@ const NewDirectMessage = () => {
         <Plus />
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <>
-          <h4 className='text-center font-bold text-white'>
-            Please select a contact
-          </h4>
-          <input
-            type='text'
-            placeholder='Search contact'
-            value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-            className='p-3 rounded-lg w-full bg-[#262e3b]  text-white mt-4 '
-          />
-          {isSearching && (
-            <div className='text-center text-white text-sm  my-5'>
-              Searching...
-            </div>
-          )}
-          {isSearchError && (
-            <div className='text-center text-white text-sm  my-5'>
-              Failed to fetch contacts
-            </div>
-          )}
-          {searchedContacts.length === 0 && !isSearching && !isSearchError && (
-            <div className='text-center text-white mt-5'>No contacts found</div>
-          )}
-          {searchedContacts.length > 0 &&
-            searchedContacts.map((contact) => (
-              <li
-                key={contact.id}
-                className='flex items-center gap-3 py-3 cursor-pointer text-white'
-                onClick={() => selectNewContact(contact)}
-              >
-                {contact.avatar ? (
-                  <img
-                    src={contact.avatar}
-                    alt='User Avatar'
-                    className='w-12 h-12 rounded-full object-cover'
-                  />
-                ) : (
-                  <div className='w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold'>
-                    {contact.username ? contact.username[0].toUpperCase() : 'i'}
-                  </div>
-                )}
-                <div className='flex flex-col'>
-                  <span className='capitalize'>{contact?.username}</span>
-                  <span className='text-xs'>{contact?.email}</span>
+        <h4 className='text-center font-bold text-white'>
+          Please select a contact
+        </h4>
+        <input
+          type='text'
+          placeholder='Search contact'
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value)}
+          className='p-3 rounded-lg w-full bg-[#262e3b]  text-white mt-4 '
+        />
+        {isSearching && (
+          <div className='text-center text-white text-sm  my-5'>
+            Searching...
+          </div>
+        )}
+        {isSearchError && (
+          <div className='text-center text-white text-sm  my-5'>
+            Failed to fetch contacts
+          </div>
+        )}
+        {searchedContacts.length === 0 && !isSearching && !isSearchError && (
+          <div className='text-center text-white mt-5'>No contacts found</div>
+        )}
+        {searchedContacts.length > 0 &&
+          searchedContacts.map((contact) => (
+            <li
+              key={contact.id}
+              className='flex items-center gap-3 py-3 cursor-pointer text-white'
+              onClick={() => selectNewContact(contact)}
+            >
+              {contact.avatar ? (
+                <img
+                  src={contact.avatar}
+                  alt='User Avatar'
+                  className='w-12 h-12 rounded-full object-cover'
+                />
+              ) : (
+                <div className='w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black font-bold'>
+                  {contact.username ? contact.username[0].toUpperCase() : 'i'}
                 </div>
-              </li>
-            ))}
-        </>
+              )}
+              <div className='flex flex-col'>
+                <span className='capitalize'>{contact?.username}</span>
+                <span className='text-xs'>{contact?.email}</span>
+              </div>
+            </li>
+          ))}
       </Modal>
     </>
   );
