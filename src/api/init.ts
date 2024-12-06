@@ -19,15 +19,21 @@ export const apiClient = axios.create({
 // Interceptor to dynamically set the Authorization header
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getFromLocalStorage('token'); // Get token before each request
+    const token = getFromLocalStorage('token');
+    // Skip token check for login or public API calls
+    const isPublicEndpoint =
+      config.url?.includes('/login') || config.url?.includes('/register');
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else if (!isPublicEndpoint) {
+      console.warn('No token found. Skipping API call.');
+      throw new axios.Cancel('No token available');
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Interceptor to handle responses, including token errors
@@ -40,6 +46,7 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       // Redirect to login page if token is missing or invalid
       if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
         window.location.href = '/'; // Adjust the route as per your application
       }
     }

@@ -11,13 +11,11 @@ const ProfileInfo = () => {
   const username = user?.user?.username;
   const userImage = user?.user?.image;
 
-  const [avatarImage] = useState<string | null>(
-    user?.user?.image ?? null
-  );
+  const [avatarImage] = useState<string | null>(user?.user?.image ?? null);
 
   const handleLogOut = () => {
     localStorage.clear();
-    window.location.href = '/login';
+    window.location.href = '/';
   };
   return (
     <div className='bg-[#282b33] absolute bottom-0 py-3  w-full'>
@@ -37,7 +35,6 @@ const ProfileInfo = () => {
               className='text-[green] font-bold uppercase w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center'
               onClick={() => document.getElementById('avatar-upload')?.click()}
             >
-          
               {username?.[0]}
             </div>
           )}
@@ -52,7 +49,7 @@ const ProfileInfo = () => {
           >
             <EditProfile />
           </div>
-          <div onClick={handleLogOut}>
+          <div className='text-[red]' onClick={handleLogOut}>
             <Logout />
           </div>
         </div>
