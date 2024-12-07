@@ -1,46 +1,44 @@
-import { useUser } from '@/hooks/user';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, ReactNode } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-type SocketContextType = Socket | null;
+interface SocketContextType {
+  socket: Socket | null;
+}
 
-const SocketContext = createContext<SocketContextType>(null);
+const SocketContext = createContext<SocketContextType | null>(null);
 
 export const useSocket = () => {
-  return useContext(SocketContext);
+  const context = useContext(SocketContext);
+  if (!context) {
+    throw new Error('useSocket must be used within a SocketProvider');
+  }
+  return context;
 };
 
-export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data: user } = useUser(true);
-  const [socket, setSocket] = useState<Socket | null>(null);
+export const SocketProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const socket = useRef<Socket | null>(null);
 
   useEffect(() => {
-    if (user?.user) {
-      const { id } = user.user;
+    socket.current = io('https://async-chat-app-be.vercel.app/');
 
-      // Use environment variable or fallback URL
-      const HOST = 'https://async-chat-app-be.vercel.app/';
+    socket.current.on('connect', () => {
+      console.log('Connected:', socket.current?.id);
+    });
 
-      const newSocket = io(HOST, {
-        withCredentials: true,
-        query: { userId: id },
-      });
+    socket.current.on('disconnect', () => {
+      console.log('Disconnected');
+    });
 
-      newSocket.on('connect', () => {
-        console.log('Connected to server');
-      });
-
-      setSocket(newSocket);
-
-      return () => {
-        newSocket.disconnect();
-        console.log('Disconnected from server');
-        setSocket(null);
-      };
-    }
-  }, [user?.user]);
+    return () => {
+      socket.current?.disconnect();
+    };
+  }, []);
 
   return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={{ socket: socket.current }}>
+      {children}
+    </SocketContext.Provider>
   );
 };
